@@ -3,8 +3,6 @@
     $page_title = "Dashboard";
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +22,7 @@ include_once ("includes/navigation.php");
     <?php
     include_once ("includes/sidebar.php");
     ?>
+    <!-- End of Sidebar -->
 
     <div id="content-wrapper">
 
@@ -36,6 +35,7 @@ include_once ("includes/navigation.php");
                 </li>
                 <li class="breadcrumb-item active"><?php echo $page_title; ?></li>
             </ol>
+            <!-- End of Breadcrumbs-->
 
             <!-- Main page content-->
             <div class="row">
@@ -57,7 +57,6 @@ include_once ("includes/navigation.php");
 
             <!--End of  Main page content-->
 
-
         </div>
         <!-- /.container-fluid -->
 
@@ -66,7 +65,7 @@ include_once ("includes/navigation.php");
         ?>
 
     </div>
-    <!-- /.content-wrapper -->
+    <!-- End of content-wrapper -->
 
 </div>
 <!-- /#wrapper -->

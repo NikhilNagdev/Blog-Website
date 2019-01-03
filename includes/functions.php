@@ -5,8 +5,33 @@
     /**
      * This function is used to get the posts according to the condition specified.
      */
-    function getAllPosts($condition = 1){
+    function getAllComments($condition = 1){
         global $connection;;
+        $query = "SELECT * FROM comments WHERE $condition";
+        $posts_result = mysqli_query($connection, $query);
+        $comments = array();
+        $i = 0;
+        while($row = mysqli_fetch_assoc($posts_result)) {
+            $single_comment = array();
+            $single_comment['comment_id'] = $row['comment_id'];
+            $single_comment['comment_post_id'] = $row['comment_post_id'];
+            $single_comment['comment_author'] = $row['comment_author'];
+            $single_comment['comment_content'] = $row['comment_content'];
+            $single_comment['comment_email'] = $row['comment_email'];
+            $single_comment['comment_status'] = $row['comment_status'];
+            $single_comment['comment_date'] = $row['comment_date'];
+            $comments[$i] = $single_comment;
+            $i++;
+        }
+        return $comments;
+    }
+
+
+    /**
+     * This function is used to get the posts according to the condition specified.
+     */
+    function getAllPosts($condition = 1){
+        global $connection;
         $query = "SELECT * FROM posts WHERE $condition";
         $posts_result = mysqli_query($connection, $query);
         $posts = array();

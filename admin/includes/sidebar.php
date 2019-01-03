@@ -12,8 +12,8 @@
             <span>Pages</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="">View All</a>
-            <a class="dropdown-item" href="">Add post</a>
+            <a class="dropdown-item" href="posts.php">View All</a>
+            <a class="dropdown-item" href="posts.php?source=add_post">Add post</a>
           </div>
         </li>
         <li class="nav-item">

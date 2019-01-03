@@ -1,5 +1,13 @@
 <div class="row">
     <div class="col-md-12">
+        <a href="posts.php?source=add_post" class="btn btn-primary">Add Post</a>
+    </div>
+    <div class="mb-5"></div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
 
         <div class="table-responsive">
             <table class="table table-hover">

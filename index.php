@@ -36,29 +36,39 @@
             <?php
                 include_once ("includes/connection.php");
 
-                if(isset($_GET['submit_search'])){
+                if(isset($_GET['search'])){
                     $key = $_GET['search'];
+                    $conditional_stmt = "post_title like '%{$key}%' or post_tags like '%{$key}%' or post_author like '%{$key}%'";
+                }else if(isset($_GET['cat_id'])){
+                    $cat_id = $_GET['cat_id'];
+                    $conditional_stmt = "post_cat_id = $cat_id";
                 }else{
-                    $key = "";
+                    $conditional_stmt = 1;
                 }
-                $query_all_posts = "SELECT * FROM posts WHERE post_title like '%{$key}%' or post_tags like '%{$key}%' or post_author like '%{$key}%'";
+                $query_all_posts = "SELECT * FROM posts WHERE $conditional_stmt";
                 $all_posts_result = mysqli_query($connection, $query_all_posts);
                 while($post = mysqli_fetch_assoc($all_posts_result)) {
                     $post_title = $post['post_title'];
                     $post_author = $post['post_author'];
-
+                    $post_id = $post['post_id'];
                     $post_date = $post['post_date'];
-                    $post_content = $post['post_content'];
+                    $post_content = substr($post['post_content'], 0, 100)."...";
                     $post_tags = $post['post_tags'];
                     $post_image = $post['post_image'];
             ?>
-
+                <!--BLOG POST-->
                 <div class="card mb-4">
                     <img class="card-img-top" src="images/<?php echo $post_image;?>" alt="<?php echo $post_title;?>">
                     <div class="card-body">
-                        <h2 class="card-title"><?php echo $post_title; ?></h2>
+
+                        <h2 class="card-title">
+                            <a href="post.php?post_id=<?php echo $post_id; ?>">
+                                <?php echo $post_title; ?>
+                            </a>
+                        </h2>
+
                         <p class="card-text"><?php echo $post_content; ?></p>
-                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                        <a href="post.php?post_id=<?php echo $post_id;?>" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer-tags text-muted">
 

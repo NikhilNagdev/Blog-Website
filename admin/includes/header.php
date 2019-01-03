@@ -1,12 +1,13 @@
 <head>
 
+    <base href="http://localhost/php-basics/blog-website/admin/">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CMS Admin - <?php echo $page_title; ?></title>
+    <title>CMS Admin | <?php echo $page_title; ?></title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

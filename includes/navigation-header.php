@@ -20,7 +20,7 @@
 
                             echo <<<LINK_TITLE
 <li class="nav-item">
-    <a class="nav-link" href="#">{$categories[$i++]['cat_title']}</a>
+    <a class="nav-link" href="index.php?cat_id={$categories[$i]['cat_id']}">{$categories[$i++]['cat_title']}</a>
 </li>
 
 LINK_TITLE;

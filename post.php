@@ -21,173 +21,142 @@
     <!-- Page Content -->
     <div class="container">
 
+
       <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-8">
+            <?php
+            include_once ("includes/connection.php");
 
-          <!-- Title -->
-          <h1 class="mt-4">Post Title</h1>
+            if(isset($_GET['post_id'])){
+                $post_cat_id = $_GET['post_id'];
+                $query_all_posts = "SELECT * FROM posts WHERE post_cat_id = $post_cat_id";
+                $all_posts_result = mysqli_query($connection, $query_all_posts);
+                while ($post = mysqli_fetch_assoc($all_posts_result)) {
+            $post_title = $post['post_title'];
+            $post_author = $post['post_author'];
+            $post_id = $post['post_id'];
+            $post_date = $post['post_date'];
+            $post_content = $post['post_content'];
+            $post_tags = $post['post_tags'];
+            $post_image = $post['post_image'];
+            ?>
 
-          <!-- Author -->
-          <p class="lead">
-            by
-            <a href="#">Start Bootstrap</a>
-          </p>
+            <!-- Title -->
+            <h1 class="mt-4">
+                <?php echo $post_title; ?>
+            </h1>
 
-          <hr>
+            <!-- Author -->
+            <p class="lead">
+                by
+                <a href="#"><?php echo $post_author; ?></a>
+            </p>
 
-          <!-- Date/Time -->
-          <p>Posted on January 1, 2018 at 12:00 PM</p>
+            <hr>
 
-          <hr>
 
-          <!-- Preview Image -->
-          <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+            <!-- Preview Image -->
+            <img class="img-fluid rounded" src="images/<?php echo $post_image; ?>" alt="">
 
-          <hr>
+            <hr>
 
-          <!-- Post Content -->
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
+            <!-- Post Content -->
+            <p>
+                <?php echo $post_content; ?>
+            </p>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
+            <hr>
+            <!-- Date/Time -->
+            <p>Posted on <?php echo $post_date; ?></p>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
+            <?php
 
-          <blockquote class="blockquote">
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer">Someone famous in
-              <cite title="Source Title">Source Title</cite>
-            </footer>
-          </blockquote>
+            if (isset($_POST['post_comment'])) {
+                $comment_author = $_POST['comment_author'];
+                $comment_email = $_POST['comment_email'];
+                $comment_content = $_POST['comment_content'];
+                $comment_date = date("Y-m-d");
+                include_once("includes/connection.php");
+                $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_date) VALUES($post_id, '$comment_author', '$comment_email', '$comment_content', '$comment_date')";
+                mysqli_query($connection, $query);
+                if (mysqli_errno($connection)) {
+                    die(mysqli_error($connection));
+                }
+            }
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
+            ?>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
-
-          <hr>
-
-          <!-- Comments Form -->
-          <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
+            <!--Leave a comment-->
+            <div class="card my-4">
+                <h5 class="card-header">Leave a Comment:</h5>
+                <div class="card-body">
+                    <form method="post" action="">
+                        <div class="form-group">
+                            <label for="comment_author">Author</label>
+                            <input type="text" name="comment_author" id="comment_author" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment_email">Email</label>
+                            <input type="text" name="comment_email" id="comment_email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment_content">Comment</label>
+                            <textarea class="form-control" rows="3" name="comment_content"
+                                      id="comment_content"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" name="post_comment">Submit</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
             </div>
-          </div>
+            <!--End of Leave a Comment-->
 
-          <!-- Single Comment -->
-          <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </div>
 
-          <!-- Comment with nested comments -->
-          <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-              <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                  <h5 class="mt-0">Commenter Name</h5>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <?php
+            $condition = "comment_post_id = $post_id and comment_status='approved'";
+            $i = 0;
+            while ($i < count($comments = getAllComments($condition))) {
+//                die(print_r($comments));
+                $comment_author = $comments[$i]['comment_author'];
+                $comment_date = $comments[$i]['comment_date'];
+                $comment_content = $comments[$i]['comment_content'];
+                $i++;
+                ?>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0"><?php echo $comment_author; echo $comment_date; ?></h5>
+                        <p>
+                            <?php echo $comment_content; ?>
+                        </p>
+                    </div>
                 </div>
-              </div>
 
-              <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                  <h5 class="mt-0">Commenter Name</h5>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-              </div>
-
-            </div>
-          </div>
-
+                <?php
+            }
+            ?>
         </div>
+          <!-- Sidebar Widgets Column -->
 
-        <!-- Sidebar Widgets Column -->
-          <?php
-            include_once ("includes/sidebar.php");
-          ?>
-
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Search</h5>
-            <div class="card-body">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Categories Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Web Design</a>
-                    </li>
-                    <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
-            <div class="card-body">
-              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-            </div>
-          </div>
-
-        </div>
 
       </div>
-      <!-- /.row -->
+        <?php
+        include_once("includes/sidebar.php");
+        ?>
+        <!-- /.row -->
 
     </div>
-    <!-- /.container -->
+        <!-- /.container -->
 
-    <!-- Footer -->
+        <!-- Footer -->
+
     <?php
+
+    ?>
+    <?php
+    }
+    }
         include_once ("includes/footer.php");
     ?>
 

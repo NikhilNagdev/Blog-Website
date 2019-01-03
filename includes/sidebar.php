@@ -1,3 +1,7 @@
+<!--
+FORM TAG VAHI FIELDS BHEJTA HAI JIS FILED KA name attribute set ho
+-->
+
 <div class="col-md-4">
 
     <!-- Search Widget -->
@@ -8,7 +12,7 @@
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="submit" name="submit_search" value="search">Go!</button>
+                  <button class="btn btn-secondary" value="search">Go!</button>
                 </span>
                 </div>
             </form>
@@ -32,7 +36,7 @@
                                 for($i = 0; $i<ceil($categories_count/2); $i++) {
                                     echo <<<CATEGORY
 <li>
-<a href="#">{$categories[$i]['cat_title']}</a>
+<a href="index.php?post_cat_id={$categories[$i]['cat_id']}">{$categories[$i]['cat_title']}</a>
 </li>
 CATEGORY;
                                 }
@@ -47,7 +51,7 @@ CATEGORY;
                         for($i = ceil($categories_count/2); $i<$categories_count; $i++) {
                             echo <<<CATEGORY
 <li>
-<a href="#">{$categories[$i]['cat_title']}</a>
+<a href="index.php?cat_id={$categories[$i]['cat_id']}">{$categories[$i]['cat_title']}</a>
 </li>
 CATEGORY;
                         }

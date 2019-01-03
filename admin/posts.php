@@ -17,8 +17,9 @@ include_once ("includes/navigation.php");
 
     <!-- Sidebar -->
     <?php
-    include_once ("includes/sidebar.php");
+        include_once ("includes/sidebar.php");
     ?>
+    <!--End of Sidebar-->
 
     <div id="content-wrapper">
 

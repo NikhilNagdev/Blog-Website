@@ -53,6 +53,30 @@
         return $posts;
     }
 
+/**
+ * This function is used to get the posts according to the condition specified.
+ */
+function getAllUsers($condition = 1){
+    global $connection;
+    $query = "SELECT * FROM users WHERE $condition";
+    $users_result = mysqli_query($connection, $query);
+    $users = array();
+    $i = 0;
+    while($row = mysqli_fetch_assoc($users_result)) {
+        $single_user = array();
+        $single_user['user_id'] = $row['user_id'];
+        $single_user['username'] = $row['username'];
+        $single_user['password'] = $row['password'];
+        $single_user['first_name'] = $row['first_name'];
+        $single_user['last_name'] = $row['last_name'];
+        $single_user['email'] = $row['email'];
+        $single_user['user_image'] = $row['image'];
+        $single_user['role'] = $row['role'];
+        $users[$i++] = $single_user;
+    }
+    return $users;
+}
+
     /**
      * This function is used to get the categories according to the condition specified.
     */

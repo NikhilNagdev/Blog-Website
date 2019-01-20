@@ -33,7 +33,6 @@ if(isset($_POST['add_user'])){
     $ps = mysqli_prepare($connection, $query);
 
     mysqli_stmt_bind_param($ps, "sssssss", $username, $password, $first_name, $last_name, $email, $user_image, $role);
-//    die($query);
     mysqli_stmt_execute($ps);
 
     if(mysqli_errno($connection)){

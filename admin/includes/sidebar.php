@@ -1,4 +1,13 @@
 
+<?php
+
+if(!isset($_SESSION['user_id'])){
+    session_start();
+}
+$role = $_SESSION['role'];
+?>
+
+
 <ul class="sidebar navbar-nav toggled">
         <li class="nav-item active">
           <a class="nav-link" href="index.php">
@@ -22,16 +31,27 @@
             <span>Comments</span></a>
         </li>
 
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>User</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="">View All Users</a>
-                <a class="dropdown-item" href="">Add User</a>
-            </div>
-        </li>
+    <?php
+        if($role === "super_Admin") {
+
+            ?>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>User</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                    <a class="dropdown-item" href="">View All Users</a>
+                    <a class="dropdown-item" href="">Add User</a>
+                </div>
+            </li>
+
+            <?php
+        }
+    ?>
+
 
         <li class="nav-item">
             <a class="nav-link" href="">

@@ -4,6 +4,33 @@ FORM TAG VAHI FIELDS BHEJTA HAI JIS FILED KA name attribute set ho
 
 <div class="col-md-4">
 
+
+    <!-- Login section-->
+    <div class="card my-4">
+        <h5 class="card-header">Login</h5>
+        <div class="card-body">
+            <form action="includes/process-login.php" method="post">
+
+                <!--Username-->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+
+                <!--Password-->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <input type="submit" class="btn btn-primary" name="login" id="login" value="Login">
+
+            </form>
+        </div>
+    </div>
+    <!-- Login section-->
+
+
     <!-- Search Widget -->
     <div class="card my-4">
         <h5 class="card-header">Search</h5>

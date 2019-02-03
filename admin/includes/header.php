@@ -9,6 +9,9 @@
 
     <title>CMS Admin | <?php echo $page_title; ?></title>
 
+    <script src=https://cloud.tinymce.com/5-testing/tinymce.min.js></script>
+    <script>tinymce.init({ selector:'#post_content' });</script>
+
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

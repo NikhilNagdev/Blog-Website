@@ -6,28 +6,35 @@ FORM TAG VAHI FIELDS BHEJTA HAI JIS FILED KA name attribute set ho
 
 
     <!-- Login section-->
-    <div class="card my-4">
-        <h5 class="card-header">Login</h5>
-        <div class="card-body">
-            <form action="includes/process-login.php" method="post">
+    <?php
+    error_reporting(0);
+    if(!isUserLoggedIn()) {
+        ?>
+        <div class="card my-4">
+            <h5 class="card-header">Login</h5>
+            <div class="card-body">
+                <form action="includes/process-login.php" method="post">
 
-                <!--Username-->
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username">
-                </div>
+                    <!--Username-->
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
 
-                <!--Password-->
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
+                    <!--Password-->
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
 
-                <input type="submit" class="btn btn-primary" name="login" id="login" value="Login">
+                    <input type="submit" class="btn btn-primary" name="login" id="login" value="Login">
 
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
+        <?php
+    }
+    ?>
     <!-- Login section-->
 
 

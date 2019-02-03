@@ -9,7 +9,6 @@
 
         $query = "SELECT * FROM users WHERE username = ?";
         $ps =  mysqli_prepare($connection, $query);
-        die($query);
         mysqli_stmt_bind_param($ps, "s", $username);
         mysqli_stmt_execute($ps);
         $rs = mysqli_stmt_get_result($ps);

@@ -12,6 +12,17 @@
                     </a>
                 </li>
                 <?php
+                include_once ("includes/functions.php");
+                if(isUserLoggedIn()) {
+
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin/index.php">Admin
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <?php
+                }
 
                         include_once ("functions.php");
                         $categories = getAllCategories();

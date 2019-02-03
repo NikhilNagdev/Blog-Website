@@ -32,11 +32,11 @@
      */
     function getAllPosts($condition = 1){
         global $connection;
-        $query = "SELECT * FROM posts WHERE $condition";
+        $query = "SELECT posts.*, CONCAT(users.first_name, CONCAT(\" \", users.last_name)) as author FROM posts, users WHERE posts.post_author = users.user_id AND ($condition)";
         $posts_result = mysqli_query($connection, $query);
+
         $posts = array();
         $i = 0;
-
         while($row = mysqli_fetch_assoc($posts_result)) {
             $single_post = array();
             $single_post['post_id'] = $row['post_id'];
@@ -93,6 +93,14 @@ function getAllUsers($condition = 1){
             $categories[$i++] = $single_category;
         }
         return $categories;
+    }
+
+    function isUserLoggedIn(){
+        session_start();
+        if(isset($_SESSION['user_id'])){
+            return true;
+        }
+        return false;
     }
 
 ?>

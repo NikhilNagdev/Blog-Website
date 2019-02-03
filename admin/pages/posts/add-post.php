@@ -1,7 +1,7 @@
 <?php
 
     if(isset($_POST['publish_post'])){
-        $post_author = $_POST['post_author'];
+        $post_author = $_SESSION['user_id'];
         $post_title = $_POST['post_title'];
         $post_cat_id = $_POST['post_cat_id'];
         $post_status = $_POST['post_status'];
@@ -57,7 +57,7 @@
 
             <!--POST CATEGORY ID-->
             <div class="form-group">
-                <label for="post_cat_id">Post Category Id</label>
+                <label for="post_cat_id">Post Category</label>
                 <?php
                     include_once ("../includes/functions.php");
                     $categories = getAllCategories();
@@ -73,12 +73,6 @@
                         }
                     ?>
                 </select>
-            </div>
-
-            <!--POST AUTHOR-->
-            <div class="form-group">
-                <label for="post_author">Post Author</label>
-                <input type="text" class="form-control" name="post_author" id="post_author" placeholder="">
             </div>
 
             <!--POST STATUS-->

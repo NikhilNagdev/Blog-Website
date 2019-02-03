@@ -29,7 +29,7 @@
                 <tbody>
                 <?php
                 include_once ("../includes/functions.php");
-                $posts = getAllPosts();
+                $posts = getAllPosts("post_author = {$_SESSION['user_id']}");
                 $i = 0;
                 while($i < count($posts)) {
                     $cat_id = $posts[$i]['post_cat_id'];

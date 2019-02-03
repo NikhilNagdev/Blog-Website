@@ -1,5 +1,5 @@
 <?php
-
+    $post_per_page = 2;
     $page_title = "Home";
 
     $active_page = 'home';
@@ -38,18 +38,33 @@
 
                 if(isset($_GET['search'])){
                     $key = $_GET['search'];
-                    $conditional_stmt = "post_title like '%{$key}%' or post_tags like '%{$key}%' or post_author like '%{$key}%'";
+                    $conditional_stmt = "(post_title like '%{$key}%' or post_tags like '%{$key}%' or CONCAT(users.first_name, users.last_name) like '%{$key}%')";
                 }else if(isset($_GET['cat_id'])){
                     $cat_id = $_GET['cat_id'];
                     $conditional_stmt = "post_cat_id = $cat_id";
                 }else{
                     $conditional_stmt = 1;
                 }
-                $query_all_posts = "SELECT * FROM posts WHERE $conditional_stmt";
+
+                //FETCHINT THE TOTAL NUMBER OF RECORDS TO BE DISPLAYED
+            $query_count_posts = "SELECT posts.post_id, CONCAT(users.first_name, CONCAT(\" \", users.last_name)) as author FROM posts, users WHERE posts.post_author = users.user_id AND $conditional_stmt";
+                $count_post_result = mysqli_query($connection, $query_count_posts);
+                $count = mysqli_num_rows($count_post_result);
+                $total_pages = ceil($count/$post_per_page);
+
+                if(isset($_GET['page'])){
+                    $page = $_GET['page'];
+                }else{
+                    $page = 1;
+                }
+
+                $start = ($page - 1)*$post_per_page;
+
+                $query_all_posts = "SELECT posts.*, CONCAT(users.first_name, CONCAT(\" \", users.last_name)) as author FROM posts, users WHERE posts.post_author = users.user_id AND $conditional_stmt LIMIT $start, $post_per_page";
                 $all_posts_result = mysqli_query($connection, $query_all_posts);
                 while($post = mysqli_fetch_assoc($all_posts_result)) {
                     $post_title = $post['post_title'];
-                    $post_author = $post['post_author'];
+                    $post_author = $post['author'];
                     $post_id = $post['post_id'];
                     $post_date = $post['post_date'];
                     $post_content = substr($post['post_content'], 0, 100)."...";
@@ -98,12 +113,23 @@
 
           <!-- Pagination -->
           <ul class="pagination justify-content-center mb-4">
-            <li class="page-item">
-              <a class="page-link" href="#">&larr; Older</a>
-            </li>
-            <li class="page-item disabled">
-              <a class="page-link" href="#">Newer &rarr;</a>
-            </li>
+                <li class="page-item <?php echo $page==1?"disabled": "";?>">
+                    <a href="<?php echo "index.php?page=".($page-1);?>" class="page-link">&laquo;</a>
+                </li>
+              <?php
+                for($i = 1; $i<=$total_pages; $i++) {
+                    echo <<<PAGE
+<li class="page-item">
+    <a class="page-link" href="index.php?page={$i}">{$i}</a>
+</li>
+PAGE;
+                }
+                    ?>
+              <li class="page-item <?php echo $page==$total_pages?"disabled": "";?>">
+                  <a href="<?php echo "index.php?page=".($page+1);?>" class="page-link">&raquo;</a>
+              </li>
+
+
           </ul>
 
         </div>

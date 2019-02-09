@@ -96,11 +96,17 @@ function getAllUsers($condition = 1){
     }
 
     function isUserLoggedIn(){
-        session_start();
+        startSession();
         if(isset($_SESSION['user_id'])){
             return true;
         }
         return false;
+    }
+
+    function startSession(){
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
     }
 
 ?>

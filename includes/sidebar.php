@@ -30,6 +30,8 @@ FORM TAG VAHI FIELDS BHEJTA HAI JIS FILED KA name attribute set ho
                     <input type="submit" class="btn btn-primary" name="login" id="login" value="Login">
 
                 </form>
+
+                <a href="admin/forgot-password.php?forgot=<?php echo uniqid(true);?>">Forgot password</a>
             </div>
         </div>
         <?php
